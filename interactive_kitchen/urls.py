@@ -28,7 +28,7 @@ router = DefaultRouter()
 router.register(r'inventory', inventory_views.InventoryViewSet, basename='inventory')
 # router.register(r'receipts', inventory_views.ReceiptViewSet, basename='receipts')
 # router.register(r'profiles', user_views.ProfileViewSet, basename='profiles')
-router.register(r'recipes', recipe_views.RecipeSuggestionViewSet, basename='recipes')
+# router.register(r'recipes', recipe_views.RecipeSuggestionViewSet, basename='recipes')
 router.register(r'users', UserViewSet, basename='users')
 
 # Root view
@@ -43,4 +43,5 @@ urlpatterns = [
     path('api/auth/login/', LoginView.as_view(), name='login'),
     path('api/auth/logout/', LogoutView.as_view(), name='logout'),
     path('api/auth/', include('rest_framework.urls')),
+    path('api/recipe/', include('recipes.urls')),  # Include recipe-specific URLs
 ]
