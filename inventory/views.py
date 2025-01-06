@@ -49,7 +49,7 @@ class InventoryViewSet(viewsets.ModelViewSet):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         # Add the authenticated user as the owner of the inventory item
-        set_request_data_mutable(request, 'added_by', request.user.id)
+        request.data['added_by'] = request.user.id
 
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
@@ -60,6 +60,6 @@ class InventoryViewSet(viewsets.ModelViewSet):
         # Delete an inventory item
         instance = self.get_object()
         instance.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "Item deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
     
     
