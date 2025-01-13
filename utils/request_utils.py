@@ -10,3 +10,5 @@ def set_request_data_mutable(request, key, value):
     request.data[key] = value
     # Set mutable flag back
     request.data._mutable = _mutable
+
+    return request

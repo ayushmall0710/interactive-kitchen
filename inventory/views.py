@@ -38,7 +38,7 @@ class InventoryViewSet(viewsets.ModelViewSet):
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
             # Handle single object creation
-            set_request_data_mutable(request, 'added_by', request.user.id)
+            request = set_request_data_mutable(request, 'added_by', request.user.id)
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save(added_by=self.request.user)
@@ -49,7 +49,11 @@ class InventoryViewSet(viewsets.ModelViewSet):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         # Add the authenticated user as the owner of the inventory item
-        request.data['added_by'] = request.user.id
+        request = set_request_data_mutable(
+            request,
+            'added_by',
+            request.user.id)
+        # request.data['added_by'] = request.user.id
 
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
