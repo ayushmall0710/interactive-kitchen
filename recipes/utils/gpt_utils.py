@@ -47,3 +47,4 @@ def generate_recipe(*args, **kwargs):
     Synchronously wraps the async recipe generation function.
     """
     return asyncio.run(generate_recipe_async(*args, **kwargs))
+
